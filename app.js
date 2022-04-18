@@ -1,8 +1,8 @@
 'use strict';
 
 // ********************* GLOBAL VARIABLES *********************
- 
-let numberOfVotingRounds = 25;
+
+let numberOfVotingRounds = 5;
 let productArray = [];
 
 
@@ -27,6 +27,28 @@ function Product(name, fileExtension = 'jpg') {
   productArray.push(this);
 }
 
+new Product('sweep', 'png');
+new Product('bag');
+new Product('banana');
+new Product('bathroom');
+new Product('boots');
+new Product('breakfast');
+new Product('bubblegum');
+new Product('chair');
+new Product('cthulhu');
+new Product('dog-duck');
+new Product('dragon');
+new Product('pen');
+new Product('pet-sweep');
+new Product('scissors');
+new Product('shark');
+new Product('sweep');
+new Product('tauntaun');
+new Product('unicorn');
+new Product('water-can');
+new Product('wine-glass');
+
+
 // ********** EXECUTBALE CODE - HELPER FUNCTIONS **************
 
 function getRandomIndex() {
@@ -42,9 +64,29 @@ function renderProductImg() {
   let productThreeIndex = getRandomIndex();
 
   // make sure each img is different
-    // TO-DO
 
-  
+  while (productOneIndex === productTwoIndex || productOneIndex === productThreeIndex) {
+    productOneIndex = getRandomIndex();
+  }
+  while (productTwoIndex === productOneIndex || productTwoIndex === productThreeIndex) {
+    productTwoIndex = getRandomIndex();
+  }
+  while (productThreeIndex === productOneIndex || productThreeIndex === productTwoIndex) {
+    productThreeIndex = getRandomIndex();
+  }
+
+  imgOne.src = productArray[productOneIndex].img;
+  imgOne.alt = productArray[productOneIndex].productName;
+  productArray[productOneIndex].views++;
+
+  imgTwo.src = productArray[productTwoIndex].img;
+  imgTwo.alt = productArray[productTwoIndex].productName;
+  productArray[productTwoIndex].views++;
+
+  imgThree.src = productArray[productThreeIndex].img;
+  imgThree.alt = productArray[productThreeIndex].productName;
+  productArray[productThreeIndex].views++;
+
 }
 
 renderProductImg();
@@ -57,15 +99,15 @@ function clickHandler(e) {
   console.log(`${imgClicked} was clicked on`);
 
   for (let i = 0; i < productArray.length; i++) {
-    if(imgClicked === productArray[i].productName) {
+    if (imgClicked === productArray[i].productName) {
       productArray[i].clicks++;
     }
   }
-  
+
   numberOfVotingRounds--;
 
-  if(numberOfVotingRounds === 0) {
-    productImagesContainer.removeEventListener('click', handleClick);
+  if (numberOfVotingRounds === 0) {
+    productImagesContainer.removeEventListener('click', clickHandler);
   }
 
   // three new products now display
@@ -84,6 +126,7 @@ function showResultsHandler() {
   }
 }
 
+showResultsHandler();
 // ****************** EVENT LISTENERS *************************
 
 productImagesContainer.addEventListener('click', clickHandler);
