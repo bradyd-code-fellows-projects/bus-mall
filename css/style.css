@@ -1,0 +1,40 @@
+main {
+  display: grid;
+  grid-template-columns: 2fr 2fr;
+  grid-auto-rows: minmax(200px, 300px);
+}
+
+img {
+  width: 300px;
+  border: 1px solid black;
+}
+
+#product-images-container {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+#show-results-btn {
+  width: max-content;
+  margin: auto;
+  margin-top: 100px;
+  border: 2px solid #ffafcc;
+  padding:10px;
+  border-radius: 5px;
+  background: #ffc8dd;
+}
+
+h1 {
+  text-align: center;
+  font-size: 3em;
+  padding: 30px;
+  text-decoration: underline;
+}
+
+#display-results {
+  margin-top: 0px;
+  margin-right: 100px;
+  text-align: end;
+  font-size: 1.5em;
+  line-height: 100%;
+}
