@@ -18,14 +18,73 @@ let resultsBtn = document.getElementById('show-results-btn');
 
 // ********************* CONSTRUCTOR **************************
 
+function Product(name, fileExtension = 'jpg') {
+  this.productName = name;
+  this.img = `img/${name}.${fileExtension}`;
+  this.clicks = 0;
+  this.views = 0;
 
+  productArray.push(this);
+}
 
 // ********** EXECUTBALE CODE - HELPER FUNCTIONS **************
 
+function getRandomIndex() {
+  return Math.floor(Math.random() * productArray.length);
+}
 
+function renderProductImg() {
+
+  // get random index for each img
+
+  let productOneIndex = getRandomIndex();
+  let productTwoIndex = getRandomIndex();
+  let productThreeIndex = getRandomIndex();
+
+  // make sure each img is different
+    // TO-DO
+
+  
+}
+
+renderProductImg();
 
 // ******************* EVENT HANDLERS *************************
 
+function clickHandler(e) {
+  let imgClicked = e.target.alt;
 
+  console.log(`${imgClicked} was clicked on`);
+
+  for (let i = 0; i < productArray.length; i++) {
+    if(imgClicked === productArray[i].productName) {
+      productArray[i].clicks++;
+    }
+  }
+  
+  numberOfVotingRounds--;
+
+  if(numberOfVotingRounds === 0) {
+    productImagesContainer.removeEventListener('click', handleClick);
+  }
+
+  // three new products now display
+
+  renderProductImg();
+
+}
+
+function showResultsHandler() {
+  if (numberOfVotingRounds === 0) {
+    for (let i = 0; i < productArray.length; i++) {
+      let li = document.createElement('li');
+      resultsList.appendChild(li);
+      li.textContent = `${productArray[i].productName} was shown ${productArray[i].views} times and clicked on ${productArray.clicks} times.`;
+    }
+  }
+}
 
 // ****************** EVENT LISTENERS *************************
+
+productImagesContainer.addEventListener('click', clickHandler);
+resultsBtn.addEventListener('click', showResultsHandler);
