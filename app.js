@@ -29,24 +29,24 @@ function Product(name, fileExtension = 'jpg') {
 }
 
 new Product('sweep', 'png');
-new Product('bag', 'jpg');
-new Product('banana','jpg');
-new Product('bathroom', 'jpg');
-new Product('boots', 'jpg');
-new Product('breakfast', 'jpg');
-new Product('bubblegum', 'jpg');
-new Product('chair', 'jpg');
-new Product('cthulhu', 'jpg');
-new Product('dog-duck', 'jpg');
-new Product('dragon', 'jpg');
-new Product('pen', 'jpg');
-new Product('pet-sweep', 'jpg');
-new Product('scissors', 'jpg');
-new Product('shark', 'jpg');
-new Product('tauntaun', 'jpg');
-new Product('unicorn', 'jpg');
-new Product('water-can', 'jpg');
-new Product('wine-glass', 'jpg');
+new Product('bag');
+new Product('banana');
+new Product('bathroom');
+new Product('boots');
+new Product('breakfast');
+new Product('bubblegum');
+new Product('chair');
+new Product('cthulhu');
+new Product('dog-duck');
+new Product('dragon');
+new Product('pen');
+new Product('pet-sweep');
+new Product('scissors');
+new Product('shark');
+new Product('tauntaun');
+new Product('unicorn');
+new Product('water-can');
+new Product('wine-glass');
 
 
 // ********** EXECUTBALE CODE - HELPER FUNCTIONS **************
