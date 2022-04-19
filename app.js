@@ -19,7 +19,7 @@ let resultsBtn = document.getElementById('show-results-btn');
 // ********************* CONSTRUCTOR **************************
 
 
-function Product(name, fileExtension) {
+function Product(name, fileExtension = 'jpg') {
   this.productName = name;
   this.img = `img/${name}.${fileExtension}`;
   this.clicks = 0;
@@ -43,7 +43,6 @@ new Product('pen', 'jpg');
 new Product('pet-sweep', 'jpg');
 new Product('scissors', 'jpg');
 new Product('shark', 'jpg');
-new Product('sweep', 'jpg');
 new Product('tauntaun', 'jpg');
 new Product('unicorn', 'jpg');
 new Product('water-can', 'jpg');
@@ -92,7 +91,6 @@ function renderProductImg() {
 
 renderProductImg();
 
-console.log(productArray[0]);
 
 // ******************* EVENT HANDLERS *************************
 
