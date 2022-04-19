@@ -2,7 +2,7 @@
 
 // ********************* GLOBAL VARIABLES *********************
 
-let numberOfVotingRounds = 10;
+let numberOfVotingRounds = 25;
 let productArray = [];
 
 
@@ -66,15 +66,15 @@ function renderProductImg() {
 
   // make sure each img is different
 
-  while (productOneIndex === productTwoIndex || productOneIndex === productThreeIndex ) {
-    productOneIndex = getRandomIndex();
-  }
-  while (productTwoIndex === productOneIndex || productTwoIndex === productThreeIndex) {
-    productTwoIndex = getRandomIndex();
-  }
-  while (productThreeIndex === productOneIndex || productThreeIndex === productTwoIndex) {
-    productThreeIndex = getRandomIndex();
-  }
+  // while (productOneIndex === productTwoIndex || productOneIndex === productThreeIndex ) {
+  //   productOneIndex = getRandomIndex();
+  // }
+  // while (productTwoIndex === productOneIndex || productTwoIndex === productThreeIndex) {
+  //   productTwoIndex = getRandomIndex();
+  // }
+  // while (productThreeIndex === productOneIndex || productThreeIndex === productTwoIndex) {
+  //   productThreeIndex = getRandomIndex();
+  // }
 
   imgOne.src = productArray[productOneIndex].img;
   imgOne.alt = productArray[productOneIndex].productName;
@@ -99,7 +99,7 @@ console.log(productArray[0]);
 function clickHandler(e) {
   let imgClicked = e.target.alt;
 
-  console.log(`${imgClicked} was clicked on`);
+  console.log(`${imgClicked} was clicked on`, productArray[0].img);
 
   for (let i = 0; i < productArray.length; i++) {
     if (imgClicked === productArray[i].productName) {
