@@ -2,7 +2,7 @@
 
 // ********************* GLOBAL VARIABLES *********************
 
-let numberOfVotingRounds = 4;
+let numberOfVotingRounds = 25;
 let productArray = [];
 
 
@@ -60,25 +60,21 @@ function getRandomIndex() {
   return Math.floor(Math.random() * productArray.length);
 }
 
+let indexArr = [];
 function renderProductImg() {
 
-  // get random index for each img
+  // get random index for each img and make sure each img is different
 
-  let productOneIndex = getRandomIndex();
-  let productTwoIndex = getRandomIndex();
-  let productThreeIndex = getRandomIndex();
+  while (indexArr.length < 6) {
+    let randomNumber = getRandomIndex();
+    if (!indexArr.includes(randomNumber)) {
+      indexArr.push(randomNumber);
+    }
+  }
 
-  // make sure each img is different
-
-  // while (productOneIndex === productTwoIndex || productOneIndex === productThreeIndex ) {
-  //   productOneIndex = getRandomIndex();
-  // }
-  // while (productTwoIndex === productOneIndex || productTwoIndex === productThreeIndex) {
-  //   productTwoIndex = getRandomIndex();
-  // }
-  // while (productThreeIndex === productOneIndex || productThreeIndex === productTwoIndex) {
-  //   productThreeIndex = getRandomIndex();
-  // }
+  let productOneIndex = indexArr.shift();
+  let productTwoIndex = indexArr.shift();
+  let productThreeIndex = indexArr.shift();
 
   imgOne.src = productArray[productOneIndex].img;
   imgOne.alt = productArray[productOneIndex].productName;
@@ -179,11 +175,6 @@ function clickHandler(e) {
 
 function showResultsHandler() {
   if (numberOfVotingRounds === 0) {
-    // for (let i = 0; i < productArray.length; i++) {
-    //   let li = document.createElement('li');
-    //   resultsList.appendChild(li);
-    //   li.textContent = `${productArray[i].productName}: ${productArray[i].views} views, ${productArray[i].clicks} votes.`;
-    // }
     renderResultsChart();
   }
 }
