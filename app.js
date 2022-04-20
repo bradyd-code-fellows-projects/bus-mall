@@ -5,7 +5,6 @@
 let numberOfVotingRounds = 25;
 let productArray = [];
 
-
 // ********************* DOM REFERENCES ***********************
 
 let productImagesContainer = document.getElementById('product-images-container');
@@ -13,16 +12,23 @@ let imgOne = document.getElementById('image-one');
 let imgTwo = document.getElementById('image-two');
 let imgThree = document.getElementById('image-three');
 
-// let resultsList = document.getElementById('display-results');
 let resultsBtn = document.getElementById('show-results-btn');
 
 // ******************* CANVAS REFERENCE ***********************
 
 let ctx = document.getElementById('resultsChart');
 
+// *************** LOCAL STORAGE RETRIEVAL ********************
+
+// GET DATA OUT OF LOCAL STORAGE
+
+let retrievedProducts = localStorage.getItem('products');
+
+// PARSE DATA FOR CODE TO USE
+
+let parsedProducts = JSON.parse(retrievedProducts);
 
 // ********************* CONSTRUCTOR **************************
-
 
 function Product(name, fileExtension = 'jpg') {
   this.productName = name;
@@ -33,25 +39,31 @@ function Product(name, fileExtension = 'jpg') {
   productArray.push(this);
 }
 
-new Product('sweep', 'png');
-new Product('bag');
-new Product('banana');
-new Product('bathroom');
-new Product('boots');
-new Product('breakfast');
-new Product('bubblegum');
-new Product('chair');
-new Product('cthulhu');
-new Product('dog-duck');
-new Product('dragon');
-new Product('pen');
-new Product('pet-sweep');
-new Product('scissors');
-new Product('shark');
-new Product('tauntaun');
-new Product('unicorn');
-new Product('water-can');
-new Product('wine-glass');
+// PARSED CODE FROM LOCAL STORAGE
+
+if (retrievedProducts) {
+  productArray = parsedProducts;
+} else {
+  new Product('sweep', 'png');
+  new Product('bag');
+  new Product('banana');
+  new Product('bathroom');
+  new Product('boots');
+  new Product('breakfast');
+  new Product('bubblegum');
+  new Product('chair');
+  new Product('cthulhu');
+  new Product('dog-duck');
+  new Product('dragon');
+  new Product('pen');
+  new Product('pet-sweep');
+  new Product('scissors');
+  new Product('shark');
+  new Product('tauntaun');
+  new Product('unicorn');
+  new Product('water-can');
+  new Product('wine-glass');
+}
 
 
 // ********** EXECUTBALE CODE - HELPER FUNCTIONS **************
@@ -90,7 +102,53 @@ function renderProductImg() {
 
 }
 
+
+
 renderProductImg();
+
+// ******************* EVENT HANDLERS *************************
+
+function clickHandler(e) {
+  let imgClicked = e.target.alt;
+  for (let i = 0; i < productArray.length; i++) {
+    if (imgClicked === productArray[i].productName) {
+      productArray[i].clicks++;
+    }
+  }
+
+  numberOfVotingRounds--;
+
+  if (numberOfVotingRounds === 0) {
+    productImagesContainer.removeEventListener('click', clickHandler);
+    productImagesContainer.remove();
+
+    // ******************* LOCAL STORAGE **************************
+
+    // STRINGIFY PRODUCT DATA
+
+    let stringifiedProducts = JSON.stringify(productArray);
+
+    // SET INTO LOCAL STORAGE
+
+    localStorage.setItem('products', stringifiedProducts);
+  }
+
+  // three new products now display
+
+  renderProductImg();
+}
+
+function showResultsHandler() {
+  if (numberOfVotingRounds === 0) {
+    renderResultsChart();
+  }
+}
+showResultsHandler();
+
+function removeResultsBtn() {
+  resultsBtn.remove();
+}
+
 
 // ******************* RENDER CHART ***************************
 
@@ -147,42 +205,6 @@ function renderResultsChart() {
   new Chart(ctx, resultsChartObj);
 }
 
-
-// ******************* EVENT HANDLERS *************************
-
-function clickHandler(e) {
-  let imgClicked = e.target.alt;
-
-  console.log(`${imgClicked} was clicked on`);
-
-  for (let i = 0; i < productArray.length; i++) {
-    if (imgClicked === productArray[i].productName) {
-      productArray[i].clicks++;
-    }
-  }
-
-  numberOfVotingRounds--;
-
-  if (numberOfVotingRounds === 0) {
-    productImagesContainer.removeEventListener('click', clickHandler);
-    productImagesContainer.remove();
-  }
-
-  // three new products now display
-
-  renderProductImg();
-}
-
-function showResultsHandler() {
-  if (numberOfVotingRounds === 0) {
-    renderResultsChart();
-  }
-}
-showResultsHandler();
-
-function removeResultsBtn() {
-  resultsBtn.remove();
-}
 // ****************** EVENT LISTENERS *************************
 
 productImagesContainer.addEventListener('click', clickHandler);
